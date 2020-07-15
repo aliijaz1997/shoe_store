@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter } from 'react-router-dom'
+import Parent from './components/Parent'
 
-function App() {
-  return (
-    <div className="App">
-       Hello Shoe store by Hifz ur Rehman Ali
-    </div>
-  );
+export default function App() {
+
+    return (
+        <BrowserRouter>
+            <Parent />
+        </BrowserRouter>
+    );
 }
-
-export default App;
