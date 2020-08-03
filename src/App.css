@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
+nav {
+  background: #a2afb4;
+  padding: 5px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+nav button {
+  background-color: #008CBA; /* Green */
+  border: none;
   color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 1%;
 }
 
-.App-link {
-  color: #61dafb;
+.welcomemsg{
+  color: burlywood;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.details {
+  color: darkolivegreen;
+}
+.image1 {
+  width: 100%;
+  height: auto;
+}
+.products {
+  background-color: rgb(235, 234, 225);
+}
+.producttext {
+  color: rgb(161, 142, 118);
+}
+.inst {
+  color: darkblue;
+}
+.indeximages {
+  width : 300px;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.column {
+  float: left;
+  width: 31%;
+  padding: 5px;
+}
+.imagename{
+  background-color: #4346ce; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 237px;
+  
+}
+.textindividual {
+  font-size: 50px;
+}
+.image2 {
+  height: auto;
 }

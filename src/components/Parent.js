@@ -1,138 +1,135 @@
-import React, { useEffect, useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import StoreIcon from '@material-ui/icons/Store';
-import Button from '@material-ui/core/Button';
-import { Routes, Route } from 'react-router-dom'
-import Home from './Home'
-import Product from './Product'
-import ProductItem from './ProductItem'
-import Loader from './Loader'
-import NotFound from './NotFound'
-
-
-const theme = createMuiTheme({
-    palette: {
-        type: "dark",
-        
-        secondary: {
-            main: '#424242',
-        },
-    },
-});
-
-const useStyles = makeStyles((theme) => ({
-    appBar: {
-        position: 'relative',
-    },
-    toolbar: {
-        flexWrap: 'wrap',
-    },
-    toolbarTitle: {
-        flexGrow: 1,
-    },
-    link: {
-        margin: theme.spacing(1, 1.5),
-    },
-
-
-    icon: {
-        marginRight: theme.spacing(2),
-        color: 'black'
-    },
-    heroContent: {
-        backgroundColor: '#424242',
-        padding: theme.spacing(8, 0, 6),
-    },
-    heroButtons: {
-        marginTop: theme.spacing(4),
-    },
-    cardGrid: {
-        paddingTop: theme.spacing(8),
-        paddingBottom: theme.spacing(8),
-        backgroundColor: '#121212',
-    },
-    card: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    cardMedia: {
-        paddingTop: '56.25%', // 16:9
-    },
-    cardContent: {
-        flexGrow: 1,
-    },
-    footer: {
-        backgroundColor: 'black',
-        padding: theme.spacing(6),
-    },
-}));
-
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useParams
+} from "react-router-dom";
+import '../App.css';
+import image from "../images/walkingshoes.jpg" 
+const shoes = {
+  "air-jordan-3-valor-blue": {
+    "name": "VALOUR BLUE",
+    "img":
+      "https://secure-images.nike.com/is/image/DotCom/CT8532_104_A_PREM?$SNKRS_COVER_WD$&align=0,1"
+  },
+  "jordan-mars-270-london": {
+    "name": "JORDAN MARS 270 LONDON",
+    "img":
+      "https://secure-images.nike.com/is/image/DotCom/CV3042_001_A_PREM?$SNKRS_COVER_WD$&align=0,1"
+  },
+  "air-jordan-1-zoom-racer-blue": {
+    "name": "RACER BLUE",
+    "img":
+      "https://secure-images.nike.com/is/image/DotCom/CK6637_104_A_PREM?$SNKRS_COVER_WD$&align=0,1"
+  },
+  "air-jordan-3-valor-blue1": {
+    "name": "VALOUR BLUE",
+    "img":
+      "https://secure-images.nike.com/is/image/DotCom/CT8532_104_A_PREM?$SNKRS_COVER_WD$&align=0,1"
+  },
+  "jordan-mars-270-london2": {
+    "name": "JORDAN MARS 270 LONDON",
+    "img":
+      "https://secure-images.nike.com/is/image/DotCom/CV3042_001_A_PREM?$SNKRS_COVER_WD$&align=0,1"
+  },
+  "air-jordan-1-zoom-racer-blue3": {
+    "name": "RACER BLUE",
+    "img":
+      "https://secure-images.nike.com/is/image/DotCom/CK6637_104_A_PREM?$SNKRS_COVER_WD$&align=0,1"
+  }
+};
 export default function Parent() {
-    const [fetchedProducts, setFetchedProducts] = useState([]);
-    const [dataLoading, setDataLoading] = useState(false);
+  return (
+    <Router>
+      <nav className = "nav">
+        <Link to="/">
+          <button className = "button">
+            Home
+          </button>
+        </Link>
+        <Link to="/productitems">
+          <button >
+            Product Items
+          </button>
+        </Link>
+      </nav>
 
-    const classes = useStyles();
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="productitems" element={<Launch />}>
+          <Route path="/" element={<LaunchIndex />} />
+          <Route path=":slug" element={<LaunchShoe />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
+  );
+}
 
-    async function fetchDataFromApi() {
-        if (fetchedProducts === null || fetchedProducts.length < 1) {
-            setDataLoading(true);
-            const productsResponse = await fetch('https://fakestoreapi.com/products');
-            const products = await productsResponse.json();
-            setFetchedProducts(products);
-            setDataLoading(false);
-        }
-    }
+function NotFound() {
+  return (
+    <div>
+      <h1>Not found!</h1>
+      <p>Sorry your page was not found!</p>
+    </div>
+  );
+}
 
-    useEffect(fetchDataFromApi, []);
+function Home() {
+  return (
+    <div>
+    <h1 className = "welcomemsg">Welcome to the Online Shoe Store</h1>
+    <h3 className = 'details'> we assure you to give more comfort with innovative style. Checkout the products in product items.</h3>
+    <img className= "image1" src = {image} alt = "walkingimg"/>
+    </div>
+  );
+}
 
+function Launch() {
+  return (
+    <div className = "products">
+      <h1 className = "producttext">Here are the products for you. Select your favourite color, design and category.</h1>
+      <h2 className = "inst"> Walk with Comfort</h2>
+      <h2 className = "inst"> Jogg with passion</h2>
+      <h2 className = "inst"> Be competitive in running</h2>
 
-    if (dataLoading) {
-        return (
-            <Loader open={true} />
-            );
-    }
+      <Outlet />
+    </div>
+  );
+}
 
-    //debugger;
-    return (
-        <ThemeProvider theme={theme}>
-            <React.Fragment>
-                <CssBaseline />
-                <AppBar position="static" color="primary" elevation={0} className={classes.appBar}>
-                    <Toolbar className={classes.toolbar}>
-                        <StoreIcon className={classes.icon} />
-                        <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                            Shoe Store
-                        </Typography>
-                        <Button href="/" variant="contained" color="secondary" className={classes.link}>
-                            Price & Details
-                        </Button>
-                    </Toolbar>
-                </AppBar>  
-                <main style={{ backgroundColor: '#121212' }}>
-                    
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route exact path="/product" component={Product}/>
-                            <Route path="/product/:id" component={ProductItem}/>       
-                            <Route path="*" element={<NotFound />} />
-                        </Routes>
-                    
-                </main>
-                {/* Footer */}
-                <footer className={classes.footer}>
-                    <Typography variant="h6" align="center" gutterBottom>
-                       Shoe store using react router 
-                </Typography>
-                </footer>
-                {/* End footer */}
-            </React.Fragment>
-        </ThemeProvider>
-    );
+function LaunchIndex() {
+  return (
+    <div className = "row">
+      {Object.entries(shoes).map(([slug, { name, img }]) => (
+        <div className = "column" key={slug}>
+          <Link to={`/productitems/${slug}`}>
+            <img className = "indeximages" src={img} alt={name} />
+            <h2 className = "imagename">{name}</h2>
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function LaunchShoe() {
+  const { slug } = useParams();
+  const shoe = shoes[slug];
+
+  if (!shoe) {
+    return <h2>Not Found!</h2>;
+  }
+
+  const { name, img } = shoe;
+
+  return (
+    <div>
+      <h2 className = "textindividual">{name}</h2>
+      <img className = "image2 " src={img} alt={name} />
+    </div>
+  );
 }
